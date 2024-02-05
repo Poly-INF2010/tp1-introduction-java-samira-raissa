@@ -11,7 +11,10 @@ public final class PointOperator {
      * @param translateVector Translation to apply
      */
     public static void translate(Double[] vector, Double[] translateVector) {
-
+        int  VECTOR_LENGTH=vector.length;
+        for (int i=0; i<VECTOR_LENGTH;i++) {
+            vector[i] += translateVector[i];
+        }
     }
 
     /** TODO
@@ -21,6 +24,22 @@ public final class PointOperator {
      * @param rotationMatrix Matrix by which to rotate
      */
     public static void rotate(Double[] vector, Double[][] rotationMatrix) {
+        Double[] vectorCopy=vector.clone();
+        Double[] rotationMatrixLine;
+        int  VECTOR_LENGTH=vector.length;
+        double temp;
+        int indexe;
+
+        for (int i=0;i<VECTOR_LENGTH;i++){
+            temp= (double) 0;
+            rotationMatrixLine=rotationMatrix[i];
+            indexe=0;
+            for(double element:vectorCopy){
+                temp+=rotationMatrixLine[indexe]*element;
+                indexe++;
+            }
+            vector[i]=temp;
+        }
 
     }
 
@@ -30,7 +49,13 @@ public final class PointOperator {
      * @param divider Scalar by which to divide
      */
     public static void divide(Double[] vector, Double divider) {
+        if (divider==0)
+            return;
 
+        int  VECTOR_LENGTH=vector.length;
+        for (int i=0; i<VECTOR_LENGTH;i++) {
+            vector[i] /= divider;
+        }
     }
 
     /** TODO
@@ -39,7 +64,10 @@ public final class PointOperator {
      * @param multiplier Scalar by which to multiply
      */
     public static void multiply(Double[] vector, Double multiplier) {
-
+        int  VECTOR_LENGTH=vector.length;
+        for (int i=0; i<VECTOR_LENGTH;i++) {
+            vector[i] *= multiplier;
+        }
     }
 
     /** TODO
@@ -48,6 +76,12 @@ public final class PointOperator {
      * @param adder Scalar to add to vector
      */
     public static void add(Double[] vector, Double adder) {
-
+        if (adder==0){
+            return;
+        }
+        int  VECTOR_LENGTH=vector.length;
+        for (int i=0; i<VECTOR_LENGTH;i++) {
+            vector[i] += adder;
+        }
     }
 }
