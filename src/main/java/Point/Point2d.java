@@ -12,8 +12,7 @@ public class Point2d extends AbstractPoint {
      * @param y Y coordinate
      */
     public Point2d(Double x, Double y) {
-        super(new double[] {x, y})
-        ;
+        super(new double[] {x, y});
     }
 
     /** TODO
@@ -72,9 +71,8 @@ public class Point2d extends AbstractPoint {
      * @return Rotated point
      */
     public Point2d rotate(Double angle) {
-        double x=vector[X],y=vector[Y];
-        vector[X]=x*Math.cos( angle)-y*Math.sin(angle);
-        vector[Y]=x*Math.sin( angle)+y*Math.cos(angle);
+        final Double[][] rotationMatrix={{Math.cos(angle),-Math.sin(angle)},{Math.sin(angle),Math.cos(angle)}};
+        this.rotate(rotationMatrix);
         return this;
     }
 
@@ -116,6 +114,6 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d clone() {
-        return new Point2d(vector);
+        return new Point2d(this.vector);
     }
 }

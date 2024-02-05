@@ -11,7 +11,7 @@ public final class PointOperator {
      * @param translateVector Translation to apply
      */
     public static void translate(Double[] vector, Double[] translateVector) {
-        int  VECTOR_LENGTH=vector.length;
+        final int VECTOR_LENGTH=vector.length;
         for (int i=0; i<VECTOR_LENGTH;i++) {
             vector[i] += translateVector[i];
         }
@@ -26,19 +26,19 @@ public final class PointOperator {
     public static void rotate(Double[] vector, Double[][] rotationMatrix) {
         Double[] vectorCopy=vector.clone();
         Double[] rotationMatrixLine;
-        int  VECTOR_LENGTH=vector.length;
-        double temp;
-        int indexe;
+        final int  VECTOR_LENGTH=vector.length;
+        double resultCell;
+        int index;
 
         for (int i=0;i<VECTOR_LENGTH;i++){
-            temp= (double) 0;
+            resultCell= (double) 0;
             rotationMatrixLine=rotationMatrix[i];
-            indexe=0;
+            index=0;
             for(double element:vectorCopy){
-                temp+=rotationMatrixLine[indexe]*element;
-                indexe++;
+                resultCell+=rotationMatrixLine[index]*element;
+                index++;
             }
-            vector[i]=temp;
+            vector[i]=resultCell;
         }
 
     }
@@ -49,10 +49,10 @@ public final class PointOperator {
      * @param divider Scalar by which to divide
      */
     public static void divide(Double[] vector, Double divider) {
-        if (divider==0)
+        if (divider==0 || divider==1)
             return;
 
-        int  VECTOR_LENGTH=vector.length;
+        final int  VECTOR_LENGTH=vector.length;
         for (int i=0; i<VECTOR_LENGTH;i++) {
             vector[i] /= divider;
         }
@@ -64,7 +64,9 @@ public final class PointOperator {
      * @param multiplier Scalar by which to multiply
      */
     public static void multiply(Double[] vector, Double multiplier) {
-        int  VECTOR_LENGTH=vector.length;
+        if (multiplier==1)
+            return;
+        final int  VECTOR_LENGTH=vector.length;
         for (int i=0; i<VECTOR_LENGTH;i++) {
             vector[i] *= multiplier;
         }
@@ -79,7 +81,7 @@ public final class PointOperator {
         if (adder==0){
             return;
         }
-        int  VECTOR_LENGTH=vector.length;
+        final int  VECTOR_LENGTH=vector.length;
         for (int i=0; i<VECTOR_LENGTH;i++) {
             vector[i] += adder;
         }

@@ -6,30 +6,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Rectangle extends BaseShape {
-    private Collection<Point2d> segment(Double length,Double otherCoord,Boolean isVertical){
-        Collection<Point2d> array=new ArrayList<>();
+    private Collection<Point2d> createLine(Double length, Double otherCoord, Boolean isVertical){
+        Collection<Point2d> lineCoords=new ArrayList<Point2d>();
+        final double HALF_LENGTH=length/2;
         if (isVertical)
-            for (double y=length/2;y>=0;y-=spaceBetweenPoints){
-                array.add(new Point2d(otherCoord,y));
-                array.add(new Point2d(otherCoord,-y));
+            for (double y=HALF_LENGTH;y>=0;y-=spaceBetweenPoints){
+                lineCoords.add(new Point2d(otherCoord,y));
+                lineCoords.add(new Point2d(otherCoord,-y));
 
             }
         else
-            for (double x=length/2;x>=0;x-=spaceBetweenPoints){
-                array.add(new Point2d(x,otherCoord));
-                array.add(new Point2d(-x,otherCoord));
+            for (double x=HALF_LENGTH;x>=0;x-=spaceBetweenPoints){
+                lineCoords.add(new Point2d(x,otherCoord));
+                lineCoords.add(new Point2d(-x,otherCoord));
 
             }
 
-        return array;
+        return lineCoords;
 
     }
-    private void empty_rectangle(Double width, Double height){
-        double HALF_WIDTH=width/2,HALF_HEIGHT=height/2;
-        addAll(segment(height,HALF_WIDTH,true));
-        addAll(segment(height,-HALF_WIDTH,true));
-        addAll(segment(width,HALF_HEIGHT,false));
-        addAll(segment(width,-HALF_HEIGHT,false));
+    /** Name  createEmptyRectangle
+     * Create an empty rectangle centered on (0, 0)
+     * @param width Width of the rectangle
+     * @param height Height of the rectangle
+     */
+    private void createEmptyRectangle(Double width, Double height){
+        final double HALF_WIDTH=width/2,HALF_HEIGHT=height/2;
+        addAll(createLine(height,HALF_WIDTH,true));
+        addAll(createLine(height,-HALF_WIDTH,true));
+        addAll(createLine(width,HALF_HEIGHT,false));
+        addAll(createLine(width,-HALF_HEIGHT,false));
     }
     /** TODO
      * Create a filled rectangle centered on (0, 0)
@@ -38,7 +44,7 @@ public class Rectangle extends BaseShape {
      */
     public Rectangle(Double width, Double height) {
         while(width>0 & height>0 ){
-            empty_rectangle(width,height);
+            createEmptyRectangle(width,height);
             width-=spaceBetweenPoints;
             height-=spaceBetweenPoints;
         }
